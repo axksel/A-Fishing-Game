@@ -89,13 +89,13 @@ public class FishingLine : MonoBehaviour
                 }
                 if (Input.GetAxis("Mouse ScrollWheel") < 0f) // forward
                 {
-                    lineLength -= 0.01f;
+                    lineLength -= 0.05f;
                     lineLength = Mathf.Clamp(lineLength, 0, 1);
 
                 }
                 if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
                 {
-                    lineLength += 0.01f;
+                    lineLength += 0.05f;
                     lineLength = Mathf.Clamp(lineLength, 0, 1);
 
                 }
