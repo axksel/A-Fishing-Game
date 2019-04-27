@@ -9,7 +9,7 @@ public class isbjergcode : MonoBehaviour
 
     void Update()
     {
-        transform.position += -boat.transform.forward*0.5f;
+        transform.position += -boat.transform.forward*0.25f;
     }
 
     void OnTriggerEnter(Collider collision)
