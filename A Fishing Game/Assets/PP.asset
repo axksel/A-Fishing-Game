@@ -98,7 +98,7 @@ MonoBehaviour:
       logMin: -15
       logMax: 1
   bloom:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       bloom:
         intensity: 18.77

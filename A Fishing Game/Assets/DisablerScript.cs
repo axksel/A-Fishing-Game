@@ -20,7 +20,7 @@ public class DisablerScript : MonoBehaviour
         {
 
             fiskeStang.SetActive(false);
-        grid.SetActive(false);
+            grid.GetComponent<MeshRenderer>().enabled = false;
         }
 
     }
@@ -30,7 +30,7 @@ public class DisablerScript : MonoBehaviour
         {
 
             fiskeStang.SetActive(true);
-            grid.SetActive(true);
+            grid.GetComponent<MeshRenderer>().enabled = true;
         }
     }
 }

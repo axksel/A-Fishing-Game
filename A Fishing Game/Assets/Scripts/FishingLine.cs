@@ -12,8 +12,10 @@ public class FishingLine : MonoBehaviour
     public Grid grid;
     public GameObject gm;
     public GameObject player;
+    public GameObject decos;
     Vector2 closestPoint;
     Vector3 tmpHit;
+    public ParticleSystem splas;
 
     bool hitWater = false;
     bool doOnce = true;
@@ -110,13 +112,14 @@ public class FishingLine : MonoBehaviour
                 cube.SetActive(true);
                 if (!doOnce)
                 {
-                    closestPoint = FindClosestVert(grid.xSize / 2, grid.ySize / 2);
                     lineLength += 0.5f;
                     lineLength = Mathf.Clamp(lineLength, 0, 1);
 
-                    if (lineRenderer.GetPosition(particles.Length - 1).y < grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y && !hitWater)
+                    if (lineRenderer.GetPosition(particles.Length - 1).y < 0f && !hitWater)
                     {
                         tmpHit = lineRenderer.GetPosition(particles.Length - 1);
+                        Instantiate(splas, tmpHit, Quaternion.identity);
+
                         cube.transform.position = lineRenderer.GetPosition(particles.Length - 1);
                         hitWater = true;
                         throwStarted = false;
@@ -151,6 +154,7 @@ public class FishingLine : MonoBehaviour
             f.gameObject.transform.position = GameObject.FindGameObjectWithTag("FishStorage").transform.position;
             Destroy(f.GetComponent<FishAI>());
             f.GetComponent<Rigidbody>().useGravity = true;
+            decos.GetComponent<RandomForce>().decos.Add(f);
         }
         cube.GetComponent<LureScript>().hookedFishs.Clear();
     }

@@ -68,7 +68,7 @@ public class Grid : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
-                float yMod = (Mathf.PerlinNoise(y*0.03f + Time.time*0.5f, x*0.03f+Time.time*0.5f) * 10f);
+                float yMod = (Mathf.PerlinNoise(y*0.03f + Time.time*0.5f, x*0.03f+Time.time*0.5f) * 25f);
                 vertices[y, x].y = yMod;
 
             }
