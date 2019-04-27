@@ -6,7 +6,7 @@ public class Grid : MonoBehaviour
 {
 
     public int xSize,ySize;
-    private Vector3[,] vertices;
+    public Vector3[,] vertices;
     private Vector3[] vertices1d;
     private Mesh mesh;
 
