@@ -9,6 +9,7 @@ public class ror : MonoBehaviour
     public PlayerController fiskeScript;
     public BoatController skibsScript;
     public GameObject playerCharacter;
+    public bool inSailing =false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +28,14 @@ public class ror : MonoBehaviour
             skibsScript.enabled = true;
             playerCharacter.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
             enableRor = false;
-        } else if (Input.GetKeyDown(KeyCode.E))
+            inSailing = true;
+        } else if (Input.GetKeyDown(KeyCode.E)&& inSailing)
         {
             fiskeScript.enabled = true;
             skibsScript.enabled = false;
             playerCharacter.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
+            inSailing = false;
+            enableRor = true;
         }
 
     }
