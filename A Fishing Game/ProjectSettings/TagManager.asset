@@ -7,6 +7,7 @@ TagManager:
   - Fish
   - FishStorage
   - Boat
+  - Ror
   layers:
   - Default
   - TransparentFX
