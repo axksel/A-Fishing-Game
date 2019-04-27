@@ -59,7 +59,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.17895241
+      - time: 0.22615005
         functionName: AniEvent
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a6be814b1b162f04e8a99e927941f3ea,
