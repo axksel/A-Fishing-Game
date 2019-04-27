@@ -24,12 +24,16 @@ public class ror : MonoBehaviour
 
         if(enableRor && Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("test");
             fiskeScript.enabled = false;
             skibsScript.enabled = true;
             playerCharacter.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
-            enableRor = false;
             inSailing = true;
-        } else if (Input.GetKeyDown(KeyCode.E)&& inSailing)
+            enableRor = false;
+
+        } 
+
+       else if (Input.GetKeyDown(KeyCode.E)&& inSailing)
         {
             fiskeScript.enabled = true;
             skibsScript.enabled = false;
