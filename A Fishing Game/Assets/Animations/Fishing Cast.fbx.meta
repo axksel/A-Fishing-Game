@@ -38,8 +38,8 @@ ModelImporter:
       name: Fishing
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 0
-      lastFrame: 263
+      firstFrame: 42
+      lastFrame: 117
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

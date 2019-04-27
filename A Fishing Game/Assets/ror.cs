@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ror : MonoBehaviour
 {
@@ -10,9 +9,7 @@ public class ror : MonoBehaviour
     public PlayerController fiskeScript;
     public BoatController skibsScript;
     public GameObject playerCharacter;
-    public bool inSailing =false;
-    public Text text;
-     // Start is called before the first frame update
+    // Start is called before the first frame update
     void Start()
     {
         
@@ -26,23 +23,17 @@ public class ror : MonoBehaviour
 
         if(enableRor && Input.GetKeyDown(KeyCode.E))
         {
-           
+
             fiskeScript.enabled = false;
             skibsScript.enabled = true;
-            text.text = "Press E to stop steering";
             playerCharacter.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
-            inSailing = true;
             enableRor = false;
-
-        } 
-
-       else if (Input.GetKeyDown(KeyCode.E)&& inSailing)
+        } else if (Input.GetKeyDown(KeyCode.E))
         {
+
             fiskeScript.enabled = true;
             skibsScript.enabled = false;
             playerCharacter.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
-            inSailing = false;
-            enableRor = true;
         }
 
     }
@@ -51,9 +42,8 @@ public class ror : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-           
+            Debug.Log("lolololo");
             enableRor = true;
-            text.text = "Press E to steer Boat";
         }
 
     }
@@ -62,7 +52,6 @@ public class ror : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             enableRor = false;
-            text.text = "Press E to Fish";
         }
 
     }

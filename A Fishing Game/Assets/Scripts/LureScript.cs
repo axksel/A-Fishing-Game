@@ -24,12 +24,13 @@ public class LureScript : MonoBehaviour
     {
         if (collision.tag == "Fish")
         {
-            GameObject fish = collision.gameObject;
-            fish.GetComponent<FishAI>().lurePos = transform;
-            fish.GetComponent<FishAI>().isHooked();
-            hookedFishs.Add(fish);
-
-            
+            if(hookedFishs.Count == 0)
+            {
+                GameObject fish = collision.gameObject;
+                fish.GetComponent<FishAI>().lurePos = transform;
+                fish.GetComponent<FishAI>().isHooked();
+                hookedFishs.Add(fish);
+            }
         }
     }
 }

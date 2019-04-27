@@ -152,6 +152,7 @@ public class FishingLine : MonoBehaviour
             Destroy(f.GetComponent<FishAI>());
             f.GetComponent<Rigidbody>().useGravity = true;
         }
+        cube.GetComponent<LureScript>().hookedFishs.Clear();
     }
 
 
