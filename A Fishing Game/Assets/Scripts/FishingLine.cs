@@ -79,6 +79,7 @@ public class FishingLine : MonoBehaviour
                     hitWater = false;
                     throwing = false;
                     lineRenderer.enabled = false;
+                    doOnce = true;
                 }
                 if (Input.GetAxis("Mouse ScrollWheel") < 0f) // forward
                 {
