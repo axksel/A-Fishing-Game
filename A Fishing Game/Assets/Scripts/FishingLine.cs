@@ -71,6 +71,9 @@ public class FishingLine : MonoBehaviour
                 //cube.transform.position = new Vector3(cube.transform.position.x, grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y - gm.transform.position.y, cube.transform.position.z);
                 cube.transform.position = Vector3.Lerp(tmpHit, new Vector3(topOfFishingLine.transform.position.x, cube.transform.position.y, topOfFishingLine.transform.position.z), 1 - lineLength);
 
+                float yMod = (Mathf.PerlinNoise(Time.time, 1));
+                cube.transform.position += new Vector3(0, yMod, 0);
+
                 particles[particles.Length - 1].Pos = cube.transform.position;
 
 
