@@ -14,7 +14,7 @@ public class isbjergcode : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-
+        if(collision.gameObject.tag=="Player")
             Debug.Log("game over");
         
     }
