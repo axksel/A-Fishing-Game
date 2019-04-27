@@ -12,7 +12,7 @@ public class isbjergcode : MonoBehaviour
         transform.position += -boat.transform.forward*0.5f;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
 
             Debug.Log("game over");
