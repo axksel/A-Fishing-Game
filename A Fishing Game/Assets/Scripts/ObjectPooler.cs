@@ -64,8 +64,8 @@ public class ObjectPooler: MonoBehaviour
         objspawn.transform.rotation = rot;
         float size = Random.Range(0.1f, 0.8f);
         objspawn.transform.localScale = new Vector3(size, size, size);
-        objspawn.GetComponentInChildren<Renderer>().materials[0].shader = Shader.Find("_Standard");
-        objspawn.GetComponentInChildren<Renderer>().materials[0].color = Color.green;
+        //objspawn.GetComponentInChildren<Renderer>().materials[0].shader = Shader.Find("_Standard");
+        objspawn.GetComponentInChildren<Renderer>().materials[0].color = Random.ColorHSV(0f, 1f, 0.5f, 0.8f, 0.5f, 1f);
         //poolDictionary[tag].Enqueue(objspawn);
 
         return objspawn;

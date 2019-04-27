@@ -30,6 +30,7 @@ public class LureScript : MonoBehaviour
                 fish.GetComponent<FishAI>().lurePos = transform;
                 fish.GetComponent<FishAI>().isHooked();
                 hookedFishs.Add(fish);
+                fish.GetComponent<SphereCollider>().enabled = true;
             }
         }
     }
