@@ -17,6 +17,7 @@ public class FishingLine : MonoBehaviour
 
     bool hitWater = false;
     bool doOnce = true;
+    public bool throwing = false;
     public bool throwStarted = false;
 
     [Range(0f, 1f)]
@@ -33,95 +34,105 @@ public class FishingLine : MonoBehaviour
         for (int i = 0; i < particles.Length; i++)
         {
             particles[i] = new Particle();
+            particles[i].Acceleration = new Vector3(0, acceleration, 0);
         }
 
     }
 
     void LateUpdate()
     {
-        for (int i = 1; i < particles.Length; i++)
+        if (throwing)
         {
-            particles[i].Acceleration = new Vector3(0, acceleration, 0);
-            Verlet(particles[i], dt);
-        }
-         
-        particles[1].Pos = topOfFishingLine.transform.position;
-
-        if (hitWater)
-        {
-            cube.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
-            //cube.transform.position = new Vector3(cube.transform.position.x, grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y - gm.transform.position.y, cube.transform.position.z);
-            cube.transform.position = Vector3.Lerp(tmpHit, new Vector3(topOfFishingLine.transform.position.x, cube.transform.position.y, topOfFishingLine.transform.position.z), 1 - lineLength);
-
-            particles[particles.Length - 1].Pos = cube.transform.position;
-
-
-            if(lineLength < 0.005)
+            for (int i = 1; i < particles.Length; i++)
             {
-                hitWater = false;
+                Verlet(particles[i], dt);
             }
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f) // forward
+
+            particles[1].Pos = topOfFishingLine.transform.position;
+
+            for (int j = 0; j < 5; j++)
             {
-                lineLength -= 0.005f;
-                lineLength = Mathf.Clamp(lineLength, 0, 1);
-
-            }
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
-            {
-                lineLength += 0.005f;
-                lineLength = Mathf.Clamp(lineLength, 0, 1);
-
-            }
-        }
-
-        for (int j = 0; j < 5; j++)
-        {
-            for (int i = 1; i < particles.Length - 1; i++)
-            {
-                PoleConstraint(particles[i + 1], particles[i], lineLength);
-            }
-        }
-
-        for (int i = 1; i < particles.Length; i++)
-        {
-            lineRenderer.SetPosition(i, particles[i].Pos);
-        }
-        lineRenderer.SetPosition(0, topOfFishingLine.transform.position);
-
-        
-
-        if (throwStarted)
-        {
-            if (!doOnce)
-            {
-                closestPoint = FindClosestVert(grid.xSize / 2, grid.ySize / 2);
-                lineLength += 0.005f;
-                lineLength = Mathf.Clamp(lineLength, 0, 1);
-
-                if (lineRenderer.GetPosition(particles.Length - 1).y < grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y && !hitWater)
+                for (int i = 1; i < particles.Length - 1; i++)
                 {
-                    tmpHit = lineRenderer.GetPosition(particles.Length - 1);
-                    cube.transform.position = lineRenderer.GetPosition(particles.Length - 1);
-                    hitWater = true;
-                    throwStarted = false;
+                    PoleConstraint(particles[i + 1], particles[i], lineLength);
                 }
-                particles[particles.Length - 1].Pos = cube.transform.position;
-
             }
 
-            if (doOnce)
+            for (int i = 1; i < particles.Length; i++)
             {
-                cube.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                cube.transform.position = player.transform.position + Vector3.up*2;
-                doOnce = false;
-                cube.GetComponent<Rigidbody>().AddForce(player.transform.forward * 500);
-                particles[particles.Length - 1].Pos = cube.transform.position;
+                lineRenderer.SetPosition(i, particles[i].Pos);
             }
- 
+            lineRenderer.SetPosition(0, topOfFishingLine.transform.position);
 
+
+            if (hitWater)
+            {
+                cube.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                //cube.transform.position = new Vector3(cube.transform.position.x, grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y - gm.transform.position.y, cube.transform.position.z);
+                cube.transform.position = Vector3.Lerp(tmpHit, new Vector3(topOfFishingLine.transform.position.x, cube.transform.position.y, topOfFishingLine.transform.position.z), 1 - lineLength);
+
+                particles[particles.Length - 1].Pos = cube.transform.position;
+
+
+                if (lineLength < 0.005)
+                {
+                    hitWater = false;
+                    throwing = false;
+                    lineRenderer.enabled = false;
+                }
+                if (Input.GetAxis("Mouse ScrollWheel") < 0f) // forward
+                {
+                    lineLength -= 0.05f;
+                    lineLength = Mathf.Clamp(lineLength, 0, 1);
+
+                }
+                if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+                {
+                    lineLength += 0.05f;
+                    lineLength = Mathf.Clamp(lineLength, 0, 1);
+
+                }
+            }
+
+
+
+
+
+            if (throwStarted)
+            {
+                if (!doOnce)
+                {
+                    closestPoint = FindClosestVert(grid.xSize / 2, grid.ySize / 2);
+                    lineLength += 0.5f;
+                    lineLength = Mathf.Clamp(lineLength, 0, 1);
+
+                    if (lineRenderer.GetPosition(particles.Length - 1).y < grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y && !hitWater)
+                    {
+                        tmpHit = lineRenderer.GetPosition(particles.Length - 1);
+                        cube.transform.position = lineRenderer.GetPosition(particles.Length - 1);
+                        hitWater = true;
+                        throwStarted = false;
+                        doOnce = true;
+                    }
+                    particles[particles.Length - 1].Pos = cube.transform.position;
+
+                }
+
+                if (doOnce)
+                {
+                    for (int i = 0; i < particles.Length; i++)
+                    {
+                        lineRenderer.SetPosition(i, topOfFishingLine.transform.position);
+                    }
+
+                    cube.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    cube.transform.position = player.transform.position + Vector3.up * 2;
+                    doOnce = false;
+                    cube.GetComponent<Rigidbody>().AddForce(player.transform.forward * 500);
+                    particles[particles.Length - 1].Pos = cube.transform.position;
+                }
+            }
         }
-
-
     }
 
 

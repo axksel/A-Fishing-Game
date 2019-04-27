@@ -10,5 +10,7 @@ public class AnimationEvent : MonoBehaviour
     {
         FishingLine line = fishingLine.GetComponent<FishingLine>();
         line.throwStarted = true;
+        line.throwing = true;
+        fishingLine.GetComponent<LineRenderer>().enabled = true;
     }
 }
