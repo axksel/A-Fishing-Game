@@ -15,7 +15,6 @@ public class ObjectPooler: MonoBehaviour
 
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
-    // Start is called before the first frame update
 
     void Start()
     {
@@ -46,7 +45,7 @@ public class ObjectPooler: MonoBehaviour
 
     IEnumerator spawn(string tag, Vector3 pos, Quaternion rot)
     {
-        SpawnFromPool("Fish", transform.position, Quaternion.identity).transform.Rotate(new Vector3(0,Random.Range(-90,90),0));
+        SpawnFromPool("Fish", transform.position, Quaternion.identity).transform.Rotate(new Vector3(0, Random.Range(-180, 180), 0));
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(spawn("Fish", transform.position, Quaternion.identity));
     }
@@ -63,8 +62,11 @@ public class ObjectPooler: MonoBehaviour
         objspawn.SetActive(true);
         objspawn.transform.position = pos;
         objspawn.transform.rotation = rot;
-
-        poolDictionary[tag].Enqueue(objspawn);
+        float size = Random.Range(0.1f, 0.8f);
+        objspawn.transform.localScale = new Vector3(size, size, size);
+        objspawn.GetComponentInChildren<Renderer>().materials[0].shader = Shader.Find("_Standard");
+        objspawn.GetComponentInChildren<Renderer>().materials[0].color = Color.green;
+        //poolDictionary[tag].Enqueue(objspawn);
 
         return objspawn;
     }

@@ -21,7 +21,7 @@ public class FishAI : MonoBehaviour
     float t;
     float timeToReachTarget = 3f;
 
-    
+
 
 
     // Start is called before the first frame update
@@ -77,7 +77,11 @@ public class FishAI : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-
+        
+        if (col.gameObject.tag == "Boat")
+        {
+            rb.AddForce((transform.position - col.gameObject.transform.position) * 200);
+        }
     }
 
     IEnumerator burstOfSpeed()
