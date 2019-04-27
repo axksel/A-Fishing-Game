@@ -9,14 +9,7 @@ public class FishingLine : MonoBehaviour
     LineRenderer lineRenderer;
     public GameObject topOfFishingLine;
     public GameObject cube;
-    public Grid grid;
-    public GameObject gm;
-    public GameObject player;
-    Vector2 closestPoint;
-    Vector3 tmpHit;
-
     bool hitWater = false;
-    bool doOnce = true;
     public bool throwStarted = false;
 
     [Range(0f, 1f)]
@@ -37,7 +30,7 @@ public class FishingLine : MonoBehaviour
 
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         for (int i = 1; i < particles.Length; i++)
         {
@@ -46,35 +39,23 @@ public class FishingLine : MonoBehaviour
         }
          
         particles[1].Pos = topOfFishingLine.transform.position;
-
         if (hitWater)
         {
-            cube.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
-            //cube.transform.position = new Vector3(cube.transform.position.x, grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y - gm.transform.position.y, cube.transform.position.z);
-            cube.transform.position = Vector3.Lerp(tmpHit, new Vector3(topOfFishingLine.transform.position.x, cube.transform.position.y, topOfFishingLine.transform.position.z), 1 - lineLength);
-
             particles[particles.Length - 1].Pos = cube.transform.position;
-
-
+            lineLength -= 0.005f;
+            lineLength = Mathf.Clamp(lineLength, 0, 1);
+            if (Vector3.Distance(cube.transform.position, lineRenderer.GetPosition(particles.Length - 1)) > 1)
+            {
+                cube.transform.position = Vector3.Lerp(cube.transform.position, lineRenderer.GetPosition(particles.Length - 1), 0.5f);
+                cube.transform.position -= new Vector3(0, cube.transform.position.y + 2.5f, 0);
+            }
             if(lineLength < 0.005)
             {
                 hitWater = false;
             }
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f) // forward
-            {
-                lineLength -= 0.005f;
-                lineLength = Mathf.Clamp(lineLength, 0, 1);
-
-            }
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
-            {
-                lineLength += 0.005f;
-                lineLength = Mathf.Clamp(lineLength, 0, 1);
-
-            }
         }
-
-        for (int j = 0; j < 5; j++)
+        
+        for (int j = 0; j < 10; j++)
         {
             for (int i = 1; i < particles.Length - 1; i++)
             {
@@ -88,40 +69,19 @@ public class FishingLine : MonoBehaviour
         }
         lineRenderer.SetPosition(0, topOfFishingLine.transform.position);
 
-        
-
+        if(lineRenderer.GetPosition(particles.Length - 1).y < -2 && !hitWater)
+        {
+            cube.transform.position = lineRenderer.GetPosition(particles.Length - 1);
+            hitWater = true;
+            throwStarted = false;
+        }
         if (throwStarted)
         {
-            if (!doOnce)
-            {
-                closestPoint = FindClosestVert(grid.xSize / 2, grid.ySize / 2);
-                lineLength += 0.005f;
-                lineLength = Mathf.Clamp(lineLength, 0, 1);
-
-                if (lineRenderer.GetPosition(particles.Length - 1).y < grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y && !hitWater)
-                {
-                    tmpHit = lineRenderer.GetPosition(particles.Length - 1);
-                    cube.transform.position = lineRenderer.GetPosition(particles.Length - 1);
-                    hitWater = true;
-                    throwStarted = false;
-                }
-                particles[particles.Length - 1].Pos = cube.transform.position;
-
-            }
-
-            if (doOnce)
-            {
-                cube.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                cube.transform.position = player.transform.position + Vector3.up*2;
-                doOnce = false;
-                cube.GetComponent<Rigidbody>().AddForce(player.transform.forward * 500);
-                particles[particles.Length - 1].Pos = cube.transform.position;
-            }
- 
-
+            lineLength += 0.005f;
+            lineLength = Mathf.Clamp(lineLength, 0, 1);
         }
 
-
+        
     }
 
 
@@ -144,25 +104,8 @@ public class FishingLine : MonoBehaviour
         p2.Pos -= delta * diff * 0.5f;
     }
 
-    public Vector2 FindClosestVert(int xIndex, int yIndex)
+    public void Test()
     {
-        float longestDist = 1000000;
-        int tmpX  = 0;
-        int tmpY  = 0;
-
-        for (int y = yIndex - 2; y <= yIndex + 1; y++)
-        {
-            for (int x = xIndex - 2; x <= xIndex + 1; x++)
-            {
-                float dist = Vector3.Distance(lineRenderer.GetPosition(particles.Length - 1), grid.vertices[x, y]);
-                if (longestDist > dist)
-                {
-                    longestDist = dist;
-                    tmpX = x;
-                    tmpY = y;
-                }
-            }
-        }
-        return new Vector2(tmpX, tmpY);
+        Debug.Log("HAhaha");
     }
 }
