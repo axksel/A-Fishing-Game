@@ -9,17 +9,22 @@ public class Grid : MonoBehaviour
     private Vector3[,] vertices;
     private Vector3[] vertices1d;
     private Mesh mesh;
-    public GameObject boat;
+
+    Vector3 rota;
+
+
+    private float sizeModifier=10;
     int tmpX;
     int tmpY;
 
 
     void Awake()
     {
+
         GenerateVertices();
         WaveVertices();
         Generate();
-        LocateBoat();
+      
 
 
     }
@@ -28,66 +33,29 @@ public class Grid : MonoBehaviour
         WaveVertices();
         Generate();
         SteerBoat();
-        LocateBoat(tmpX,tmpY);
+
     }
   
-    public void LocateBoat()
-    {
-        float longestDist = 1000000;
 
 
-        for (int y = 0; y <= ySize; y++)
-        {
-            for (int x = 0; x <= xSize; x++)
-            {
-                float dist = Vector3.Distance(boat.transform.position, vertices[x, y]);
-                if (longestDist > dist)
-                {
-                    longestDist = dist;
-                    tmpX = x;
-                    tmpY = y;
-                }
-            }
-        }
-        Debug.Log(tmpY + "    "+ tmpX);
-
-    }
-
-    public void LocateBoat(int xIndex,int yIndex )
-    {
-        float longestDist = 1000000;
-
-
-        for (int y = yIndex-1; y <= yIndex+1; y++)
-        {
-            for (int x = xIndex-1; x <= xIndex + 1; x++)
-            {
-                float dist = Vector3.Distance(boat.transform.position, vertices[x, y]);
-                if (longestDist > dist)
-                {
-                    longestDist = dist;
-                    tmpX = x;
-                    tmpY = y;
-                }
-            }
-        }
-        Debug.Log(tmpY + "    " + tmpX);
-
-    }
-
+   
 
 
     public void SteerBoat()
     {
-        float yTmp = boat.transform.rotation.eulerAngles.y;
+        Quaternion _facing = transform.rotation;
+        Quaternion rot;
 
-        boat.transform.position =new Vector3(boat.transform.position.x, Vector3.Lerp(boat.transform.position, vertices[tmpX, tmpY] + new Vector3(0, 2, 0), 0.8f).y,boat.transform.position.z);
-        boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation,Quaternion.Euler(mesh.normals[tmpX + xSize * tmpY] *100), 0.8f);
+        transform.position =new Vector3(transform.position.x, -vertices[xSize/2,ySize/2].y+5,transform.position.z);
+        rota = Vector3.Cross((vertices[xSize / 2, ySize / 2] - vertices[xSize / 2 + 1, ySize / 2]), (vertices[xSize / 2, ySize / 2] - vertices[xSize / 2, ySize / 2 + 1]));
+
+        rot = Quaternion.LookRotation(mesh.normals[(xSize + 1) * (ySize + 1) / 2]);
+        transform.up = rota;
+        rot *= _facing;
+        //transform.rotation = rot;
 
 
-        Vector3 tmp = boat.transform.localEulerAngles;
-        tmp.y = yTmp;
-        boat.transform.localEulerAngles = tmp;
+
     }
 
     private void WaveVertices()
@@ -97,7 +65,7 @@ public class Grid : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
-                float yMod = Mathf.PerlinNoise(y*0.03f + Time.time, x*0.03f+Time.time) * 50f;
+                float yMod = Mathf.PerlinNoise(y*0.03f + Time.time, x*0.03f+Time.time) * 10f;
                 vertices[y, x].y = yMod;
 
             }
@@ -132,7 +100,7 @@ public class Grid : MonoBehaviour
             for (int x = 0; x <= xSize; x++, i++)
             {
 
-                vertices[y,x] = new Vector3(x*10, 0, y*10);
+                vertices[y,x] = new Vector3((x* sizeModifier) - xSize / 2 * sizeModifier, 0, (y* sizeModifier) - ySize / 2 * sizeModifier);
 
             }
         }
@@ -186,5 +154,7 @@ private void Generate()
         {
             Gizmos.DrawSphere(vertices1d[i], 0.1f);
         }
+
+        Gizmos.DrawLine(vertices[xSize / 2, ySize / 2], vertices[xSize / 2, ySize / 2] + rota);
     }
 }
