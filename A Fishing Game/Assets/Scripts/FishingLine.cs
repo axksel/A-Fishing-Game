@@ -76,10 +76,13 @@ public class FishingLine : MonoBehaviour
 
                 if (lineLength < 0.005)
                 {
+                    cube.SetActive(false);
                     hitWater = false;
                     throwing = false;
                     lineRenderer.enabled = false;
                     doOnce = true;
+                    transferFishes();
+
                 }
                 if (Input.GetAxis("Mouse ScrollWheel") < 0f) // forward
                 {
@@ -101,6 +104,7 @@ public class FishingLine : MonoBehaviour
 
             if (throwStarted)
             {
+                cube.SetActive(true);
                 if (!doOnce)
                 {
                     closestPoint = FindClosestVert(grid.xSize / 2, grid.ySize / 2);
@@ -137,6 +141,18 @@ public class FishingLine : MonoBehaviour
     }
 
 
+    void transferFishes()
+    {
+        foreach (GameObject f in cube.GetComponent<LureScript>().hookedFishs)
+        {
+            f.gameObject.transform.position = GameObject.FindGameObjectWithTag("FishStorage").transform.position;
+            Destroy(f.GetComponent<FishAI>());
+            f.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
+
+
+
     private void Verlet(Particle p, float dt)
     {
         Vector3 temp = p.Pos;
@@ -159,8 +175,8 @@ public class FishingLine : MonoBehaviour
     public Vector2 FindClosestVert(int xIndex, int yIndex)
     {
         float longestDist = 1000000;
-        int tmpX  = 0;
-        int tmpY  = 0;
+        int tmpX = 0;
+        int tmpY = 0;
 
         for (int y = yIndex - 2; y <= yIndex + 1; y++)
         {

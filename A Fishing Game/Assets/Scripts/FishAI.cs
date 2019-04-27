@@ -16,6 +16,12 @@ public class FishAI : MonoBehaviour
     Rigidbody rb;
     Vector3 EAV;
     bool turning = false;
+    bool hooked = false;
+    public Transform lurePos;
+    float t;
+    float timeToReachTarget = 3f;
+
+    
 
 
     // Start is called before the first frame update
@@ -23,13 +29,33 @@ public class FishAI : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        transform.Rotate(new Vector3(Random.Range(-20,20), 180, 0));
+        transform.Rotate(new Vector3(Random.Range(-20, 20), 180, 0));
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move();
+        if (!hooked)
+        {
+            Move();
+        }
+        else
+        {
+            GoToLure();
+        }
+
+
+    }
+
+    public void GoToLure()
+    {
+        t += Time.deltaTime / timeToReachTarget;
+        transform.position = Vector3.Lerp(transform.position, lurePos.position, t);
+    }
+
+    public void isHooked()
+    {
+        hooked = true;
     }
 
 
@@ -49,6 +75,11 @@ public class FishAI : MonoBehaviour
 
     }
 
+    void OnCollisionEnter(Collision col)
+    {
+
+    }
+
     IEnumerator burstOfSpeed()
     {
         currentSpeed += 5;
@@ -65,13 +96,13 @@ public class FishAI : MonoBehaviour
 
     void turnScript()
     {
-        if (transform.position.x  >= maxXPos || transform.position.z >= maxZPos)
+        if (transform.position.x >= maxXPos || transform.position.z >= maxZPos)
         {
             EAV = new Vector3(0, 100, 0);
 
             Turn(EAV);
         }
-        else if (transform.position.x <= minXPos  || transform.position.z <= minZPos  )
+        else if (transform.position.x <= minXPos || transform.position.z <= minZPos)
         {
             EAV = new Vector3(0, 100, 0);
             Turn(EAV);
@@ -82,11 +113,11 @@ public class FishAI : MonoBehaviour
             turning = false;
         }
 
-        if( transform.position.y > maxYPos)
+        if (transform.position.y > maxYPos)
         {
             Turn(new Vector3(Random.Range(-20, -10), 0, 0));
         }
-        else if(transform.position.y < minYPos)
+        else if (transform.position.y < minYPos)
         {
             Turn(new Vector3(Random.Range(10, 20), 0, 0));
         }

@@ -47,7 +47,7 @@ public class ObjectPooler: MonoBehaviour
     IEnumerator spawn(string tag, Vector3 pos, Quaternion rot)
     {
         SpawnFromPool("Fish", transform.position, Quaternion.identity).transform.Rotate(new Vector3(0,Random.Range(-90,90),0));
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(spawn("Fish", transform.position, Quaternion.identity));
     }
 
