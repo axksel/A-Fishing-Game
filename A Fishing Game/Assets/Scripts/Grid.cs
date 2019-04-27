@@ -30,6 +30,7 @@ public class Grid : MonoBehaviour
     }
     private void FixedUpdate()
     {
+
         WaveVertices();
         Generate();
         SteerBoat();
@@ -46,7 +47,9 @@ public class Grid : MonoBehaviour
         Quaternion _facing = transform.rotation;
         Quaternion rot;
 
-        transform.position =new Vector3(transform.position.x, -vertices[xSize/2,ySize/2].y+5,transform.position.z);
+      
+
+       transform.position =new Vector3(transform.position.x, -vertices[xSize/2,ySize/2].y+5,transform.position.z);
         rota = Vector3.Cross((vertices[xSize / 2, ySize / 2] - vertices[xSize / 2 + 1, ySize / 2]), (vertices[xSize / 2, ySize / 2] - vertices[xSize / 2, ySize / 2 + 1]));
 
         rot = Quaternion.LookRotation(mesh.normals[(xSize + 1) * (ySize + 1) / 2]);
@@ -65,7 +68,7 @@ public class Grid : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
-                float yMod = Mathf.PerlinNoise(y*0.03f + Time.time, x*0.03f+Time.time) * 10f;
+                float yMod = (Mathf.PerlinNoise(y*0.03f + Time.time*0.5f, x*0.03f+Time.time*0.5f) * 10f);
                 vertices[y, x].y = yMod;
 
             }
@@ -149,10 +152,10 @@ private void Generate()
         {
             return;
         }
-        Gizmos.color = Color.black;
+        Gizmos.color = Color.red;
         for (int i = 0; i < vertices.Length; i++)
         {
-            Gizmos.DrawSphere(vertices1d[i], 0.1f);
+            Gizmos.DrawSphere(vertices1d[i], 0.5f);
         }
 
         Gizmos.DrawLine(vertices[xSize / 2, ySize / 2], vertices[xSize / 2, ySize / 2] + rota);
