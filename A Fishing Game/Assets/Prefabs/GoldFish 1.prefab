@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 858142800926250821}
   - component: {fileID: 1781244456177430519}
   - component: {fileID: 8273954938840101261}
-  - component: {fileID: 6040375951545220415}
+  - component: {fileID: 2997764590065635834}
   m_Layer: 0
   m_Name: GoldFish 1
   m_TagString: Fish
@@ -450,8 +450,8 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.076108, y: 2.8932228, z: 4.0848136}
   m_Center: {x: 0.03805399, y: 0.42668724, z: 0.1668613}
---- !u!135 &6040375951545220415
-SphereCollider:
+--- !u!136 &2997764590065635834
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -460,8 +460,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 1.14
+  m_Height: 3.09
+  m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4807906710449485595
 GameObject:

@@ -34,6 +34,7 @@ public class ObjectPooler: MonoBehaviour
         }
 
         StartCoroutine(spawn("Fish", transform.position, Quaternion.identity));
+        StartCoroutine(spawn("GlowFish", transform.position, Quaternion.identity));
 
     }
 
@@ -45,9 +46,9 @@ public class ObjectPooler: MonoBehaviour
 
     IEnumerator spawn(string tag, Vector3 pos, Quaternion rot)
     {
-        SpawnFromPool("Fish", transform.position, Quaternion.identity).transform.Rotate(new Vector3(0, Random.Range(-180, 180), 0));
+        SpawnFromPool(tag, transform.position, Quaternion.identity).transform.Rotate(new Vector3(0, Random.Range(-180, 180), 0));
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(spawn("Fish", transform.position, Quaternion.identity));
+        StartCoroutine(spawn(tag, transform.position, Quaternion.identity));
     }
 
     public GameObject SpawnFromPool(string tag, Vector3 pos, Quaternion rot)
