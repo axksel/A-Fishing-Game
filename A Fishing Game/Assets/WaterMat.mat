@@ -163,7 +163,7 @@ Material:
     - _ReflectionColor: {r: 0.47582978, g: 0.6064865, b: 0.6641791, a: 0.47058824}
     - _ShoreColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.703, g: 0.676, b: 0.438, a: 1}
-    - _SpecularColor: {r: 0.82089555, g: 0.80581594, b: 0.7718869, a: 1}
+    - _SpecularColor: {r: 0, g: 0, b: 0, a: 1}
     - _Sun: {r: 0, g: 0, b: 0, a: 0}
     - _SunColor: {r: 1, g: 1, b: 1, a: 1}
     - _WorldLightDir: {r: 0.013992369, g: -0.17359081, b: -0.9847186, a: 0}
