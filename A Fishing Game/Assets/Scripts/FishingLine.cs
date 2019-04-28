@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FishingLine : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class FishingLine : MonoBehaviour
     Vector2 closestPoint;
     Vector3 tmpHit;
     public ParticleSystem splas;
+    public Text score;
+    float score1;
 
     bool hitWater = false;
     bool doOnce = true;
@@ -155,8 +158,10 @@ public class FishingLine : MonoBehaviour
             Destroy(f.GetComponent<FishAI>());
             f.GetComponent<Rigidbody>().useGravity = true;
             decos.GetComponent<RandomForce>().decos.Add(f);
+            score1 += f.GetComponent<Transform>().localScale.x;
         }
         cube.GetComponent<LureScript>().hookedFishs.Clear();
+        score.text = score1 * 6666 + " point!";
     }
 
 
