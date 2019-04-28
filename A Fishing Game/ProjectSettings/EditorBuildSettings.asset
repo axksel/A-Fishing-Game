@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartMenu.unity
+    guid: 495b5ed4bf2af40a1859e03b1160a995
+  - enabled: 1
+    path: Assets/Scenes/ToebsLuksusScene.unity
+    guid: 0a4d099c7e8bfa54690a6da1c395d7f5
   m_configObjects: {}
