@@ -77,8 +77,6 @@ public class FishingLine : MonoBehaviour
 
             if (hitWater)
             {
-                aus.clip = audioList[1];
-                if(!aus.isPlaying) aus.Play();
                 cube.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
                 //cube.transform.position = new Vector3(cube.transform.position.x, grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y - gm.transform.position.y, cube.transform.position.z);
                 cube.transform.position = Vector3.Lerp(tmpHit, new Vector3(topOfFishingLine.transform.position.x, cube.transform.position.y, topOfFishingLine.transform.position.z), 1 - lineLength);
@@ -101,12 +99,16 @@ public class FishingLine : MonoBehaviour
                 }
                 if (Input.GetAxis("Mouse ScrollWheel") < 0f) // forward
                 {
+                    aus.clip = audioList[3];
+                    aus.Play();
                     lineLength -= 0.05f;
                     lineLength = Mathf.Clamp(lineLength, 0, 1);
 
                 }
                 if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
                 {
+                    aus.clip = audioList[3];
+                    aus.Play();
                     lineLength += 0.05f;
                     lineLength = Mathf.Clamp(lineLength, 0, 1);
 
@@ -122,6 +124,8 @@ public class FishingLine : MonoBehaviour
                 cube.SetActive(true);
                 if (!doOnce)
                 {
+                    aus.clip = audioList[2];
+                    if (!aus.isPlaying) aus.Play();
                     lineLength += 0.5f;
                     lineLength = Mathf.Clamp(lineLength, 0, 1);
 
@@ -168,12 +172,13 @@ public class FishingLine : MonoBehaviour
             f.GetComponent<Rigidbody>().useGravity = true;
             decos.GetComponent<RandomForce>().decos.Add(f);
             score1 += f.GetComponent<Transform>().localScale.x;
+            aus.clip = audioList[4];
+            aus.Play();
+            StartCoroutine(niceCatch.Activated());
         }
-        aus.clip = audioList[2];
-        aus.Play();
+
         cube.GetComponent<LureScript>().hookedFishs.Clear();
         score.text = score1 * 6666 + " point!";
-        StartCoroutine(niceCatch.Activated());
     }
 
 
