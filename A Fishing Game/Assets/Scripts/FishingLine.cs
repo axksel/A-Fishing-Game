@@ -32,8 +32,12 @@ public class FishingLine : MonoBehaviour
     [Range(0, 0.1f)]
     public float dt = 0.1f;
 
+    public List<AudioClip> audioList = new List<AudioClip>();
+    AudioSource aus;
+
     void Start()
     {
+        aus = GetComponent<AudioSource>();
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = particles.Length;
         for (int i = 0; i < particles.Length; i++)
@@ -72,6 +76,8 @@ public class FishingLine : MonoBehaviour
 
             if (hitWater)
             {
+                aus.clip = audioList[1];
+                if(!aus.isPlaying) aus.Play();
                 cube.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
                 //cube.transform.position = new Vector3(cube.transform.position.x, grid.vertices[(int)closestPoint.x, (int)closestPoint.y].y - gm.transform.position.y, cube.transform.position.z);
                 cube.transform.position = Vector3.Lerp(tmpHit, new Vector3(topOfFishingLine.transform.position.x, cube.transform.position.y, topOfFishingLine.transform.position.z), 1 - lineLength);
@@ -120,6 +126,8 @@ public class FishingLine : MonoBehaviour
 
                     if (lineRenderer.GetPosition(particles.Length - 1).y < 0f && !hitWater)
                     {
+                        aus.clip = audioList[0];
+                        aus.Play();
                         tmpHit = lineRenderer.GetPosition(particles.Length - 1);
                         Instantiate(splas, tmpHit, Quaternion.identity);
 
@@ -160,6 +168,8 @@ public class FishingLine : MonoBehaviour
             decos.GetComponent<RandomForce>().decos.Add(f);
             score1 += f.GetComponent<Transform>().localScale.x;
         }
+        aus.clip = audioList[2];
+        aus.Play();
         cube.GetComponent<LureScript>().hookedFishs.Clear();
         score.text = score1 * 6666 + " point!";
     }
