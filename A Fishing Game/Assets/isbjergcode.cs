@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class isbjergcode : MonoBehaviour
 {
@@ -14,8 +15,14 @@ public class isbjergcode : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.tag=="Player")
-            Debug.Log("game over");
-        
+        if(collision.gameObject.tag=="Boat")
+        {
+            SceneManager.LoadScene("StartMenu");
+            SceneManager.UnloadSceneAsync("ToebsLuksusScene");
+
+        }
+
+       
+
     }
 }
