@@ -19,6 +19,7 @@ public class isbjergcode : MonoBehaviour
         {
             SceneManager.LoadScene("ArtScene_Niclas003");
             SceneManager.UnloadSceneAsync("ToebsLuksusScene");
+            Cursor.visible = true;
 
         }
 
