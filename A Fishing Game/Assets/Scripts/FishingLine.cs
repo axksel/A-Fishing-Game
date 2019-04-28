@@ -18,6 +18,7 @@ public class FishingLine : MonoBehaviour
     Vector3 tmpHit;
     public ParticleSystem splas;
     public Text score;
+    public NiceCatchBlinker niceCatch;
     float score1;
 
     bool hitWater = false;
@@ -172,6 +173,7 @@ public class FishingLine : MonoBehaviour
         aus.Play();
         cube.GetComponent<LureScript>().hookedFishs.Clear();
         score.text = score1 * 6666 + " point!";
+        StartCoroutine(niceCatch.Activated());
     }
 
 
