@@ -17,7 +17,7 @@ public class isbjergcode : MonoBehaviour
     {
         if(collision.gameObject.tag=="Boat")
         {
-            SceneManager.LoadScene("StartMenu");
+            SceneManager.LoadScene("ArtScene_Niclas003");
             SceneManager.UnloadSceneAsync("ToebsLuksusScene");
 
         }
