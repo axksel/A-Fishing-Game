@@ -1,5 +1,5 @@
 
-# Insane Fishing Simluator 2006
+# Insane Fishing Simulator 2006
 ![alt text](https://github.com/axksel/A-Fishing-Game/blob/ToebsLuksusBranch/A%20Fishing%20Game/Assets/Logo_F%C3%A6rdig.png)
 ## A Nordic Game Jame 2019 Game
 
