@@ -3,4 +3,4 @@
 
 HEllo
 
-A build of the game is available at: (https://godlikecpu.itch.io/ifs2006)
+A build of the game is available at: https://godlikecpu.itch.io/ifs2006
