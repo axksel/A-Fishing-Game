@@ -20,8 +20,8 @@ The game should be able to run direcly after opening the project in a Unity edit
 The main scene is called ToebsLuksusScene and the opening menu is called StartMenu.
 
 #### Made by:
-- Tobias @Tobiasnm.
+- Tobias @tobiasnm
 - Dan.
 - Niclas.
 - Christopher.
-- Jonas @Axksel. 
+- Jonas @axksel. 
