@@ -1,6 +1,5 @@
- A-Fishing-Game
-# A Fishing Game for NGJ 2019
+# Insane Fishing Simulator 2006
+## A Nordic Game Jam 2019 game.
 
-HEllo
 
 A build of the game is available at: https://godlikecpu.itch.io/ifs2006
