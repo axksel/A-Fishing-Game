@@ -21,7 +21,7 @@ The main scene is called ToebsLuksusScene and the opening menu is called StartMe
 
 #### Made by:
 - [Tobias]( https://github.com/Tobiasnm)
-- Dan.
-- Niclas.
+- [Dan]( https://github.com/godlikecpu)
+- [Niclas]( https://github.com/Shuedoo)
 - Christopher.
-- Jonas @axksel. 
+- [Jonas]( https://github.com/axksel)
