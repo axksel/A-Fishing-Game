@@ -3,6 +3,8 @@
 ![alt text](https://github.com/axksel/A-Fishing-Game/blob/ToebsLuksusBranch/A%20Fishing%20Game/Assets/Logo_F%C3%A6rdig.png)
 ## A Nordic Game Jame 2019 Game
 
+Link for Windows Build: https://godlikecpu.itch.io/ifs2006
+
 #### Gameplay instructions:
 Try to catch as many fish as possible without crashing your ship into icebergs!  
 But be careful - the door to the control room is stuck so you have to run through the cargo bay to get there!
